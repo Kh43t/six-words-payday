@@ -38,6 +38,11 @@ function checkStory(text: string): void {
   if (words.length !== WORDS) {
     throw new Error(`entry must be exactly ${WORDS} words, got ${words.length}`);
   }
+  // One line, no line breaks: the gate reads a single text, and a
+  // newline would split the story in two.
+  if (/\n/.test(text)) {
+    throw new Error("entry must be a single line");
+  }
   // The judge's first criterion is that the story is about an AI
   // agent's first payday, so the line must name the payday outright.
   if (!/\bfirst payday\b/i.test(text)) {
